@@ -4,6 +4,16 @@ if [ -z "$DISPLAY" ]; then
 	export DISPLAY=:0.0
 fi  
 
+#Check installed software
+declare -a reqsw=("wine" "bsdtar" "glxinfo")
+for i in "${reqsw[@]}"
+do
+	if ! [ -x "$(command -v $i)" ]; then
+		echo "You must install $i"
+		exit 0
+	fi
+done
+
 if ! $(glxinfo | grep -q "18.3"); then
 	if ! $(glxinfo | grep -q "18.2"); then
 		echo "You must install at least Mesa 18.2.0"
@@ -11,11 +21,7 @@ if ! $(glxinfo | grep -q "18.3"); then
 	fi
 fi
 
-if ! [ -x "$(command -v wine)" ]; then
-	echo "You must install wine"
-	exit 0
-fi
-
+#Check that args were used, otherwise print info
 if [[ $# -eq 0 ]] ; then
 	echo "Usage: cemutil.sh cemu.zip cemuhook.zip installdir(optional)"
 	exit 0
@@ -30,6 +36,7 @@ else
 	fi
 fi
 
+# Make scripts using installdir if applicable
 if [[ "$3" != "" ]]; then
 	INSTDIR="$3"
 else
