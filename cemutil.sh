@@ -22,7 +22,7 @@ function downloadlatest {
 }
 
 #Check installed software
-declare -a reqsw=("wine" "bsdtar" "unzip" "glxinfo" "curl" "wget")
+declare -a reqsw=("wine" "bsdtar" "unzip" "glxinfo" "curl" "wget" "winetricks")
 for i in "${reqsw[@]}"
 do
 	if ! [ -x "$(command -v $i)" ]; then
