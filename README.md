@@ -5,6 +5,7 @@ Capabilties
 ===============================================================
  - Supports downloading latest cemu and cemuzips, then installing them to either ~/.cemu or a location of your choosing.
  - Supports using local zips for the install.
+ - Creates and configures a wineprefix in the install directory, to not impact the default prefix.
  - Creates two launch scripts: one for cemu normally (with glthread and vsync flags set), and another for launching Zelda BOTW on gcn3 cards (e.g. polaris, fiji).
 
 Running
