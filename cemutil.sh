@@ -10,14 +10,14 @@ for i in "${reqsw[@]}"
 do
 	if ! [ -x "$(command -v $i)" ]; then
 		echo "You must install $i"
-		exit 0
+		exit 1
 	fi
 done
 
 if ! $(glxinfo | grep -q "18.3"); then
 	if ! $(glxinfo | grep -q "18.2"); then
 		echo "You must install at least Mesa 18.2.0"
-		exit 0
+		exit 1
 	fi
 fi
 
@@ -28,11 +28,11 @@ if [[ $# -eq 0 ]] ; then
 else
 	if [ ! -f "$1" ]; then
 		echo "cemu zip doesn't exist"
-		exit 0
+		exit 1
 	fi
 	if [ ! -f "$2" ]; then
 		echo "cemuhook zip doesn't exist"
-		exit 0
+		exit 1
 	fi
 fi
 
