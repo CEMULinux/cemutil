@@ -149,7 +149,7 @@ EOF1
 chmod +x LaunchCEMUgcn3BOTW
 
 echo "Successfully installed to $(realpath $instdir)"
-echo "You may now run CEMU with CEMULaunch written in this directory"
-echo "You may place CEMULaunch anywhere, and even pass arguments to it just like Cemu.exe on Windows"
+echo "You may now run CEMU with LaunchCEMU written in this directory"
+echo "You may place LaunchCEMU anywhere, and even pass arguments to it just like Cemu.exe on Windows"
 echo "Note: When launching there may be a WxWidgets error. Press Cancel; this is normal from cemuhook"
 echo "Note2: gcn3 (radeon 300-500 series) users should use the gcn3BOTW script for launching BOTW"
