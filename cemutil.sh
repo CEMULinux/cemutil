@@ -93,7 +93,7 @@ shift $((OPTIND -1))
 
 #Set opts if unset
 if [[ "$instdir" == "" ]]; then
-	instdir=$HOME/.cemutemp
+	instdir=$HOME/.cemu
 fi
 if [[ "$cemuzip" == "" ]]; then
 	cemuzip=cemutemp.zip
