@@ -119,7 +119,13 @@ cat > LaunchCEMU << EOF1
 export WINEPREFIX="$(realpath $instdir)/wine"
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
-winetricks settings win7
+if [ -z `winetricks list-installed|grep vcrun2015` ]; then
+  if [ -n "`whereis zenity|grep bin`" ]; then
+    zenity --info  --title 'Cemu' --text 'Installing wine dependencies.\n\nThe process may take a few minutes'
+  fi
+  winetricks -q vcrun2015
+  winetricks settings win7
+fi
 cd $(realpath $instdir)
 mesa_glthread=true vblank_mode=0 WINEESYNC=0 wine $(realpath $instdir)/Cemu.exe "\$@"
 EOF1
@@ -130,7 +136,13 @@ cat > LaunchCEMUgcn3BOTW << EOF1
 export WINEPREFIX="$(realpath $instdir)/wine"
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
-winetricks settings win7
+if [ -z `winetricks list-installed|grep vcrun2015` ]; then
+  if [ -n "`whereis zenity|grep bin`" ]; then
+    zenity --info  --title 'Cemu' --text 'Installing wine dependencies.\n\nThe process may take a few minutes'
+  fi
+  winetricks -q vcrun2015
+  winetricks settings win7
+fi
 cd $(realpath $instdir)
 R600_DEBUG=nohyperz mesa_glthread=true vblank_mode=0 WINEESYNC=0 wine $(realpath $instdir)/Cemu.exe "\$@"
 EOF1
