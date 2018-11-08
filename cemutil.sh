@@ -31,11 +31,9 @@ do
 	fi
 done
 
-if ! $(glxinfo | grep -q "Mesa 18.3"); then
-	if ! $(glxinfo | grep -q "Mesa 18.2"); then
-		echo "You must install at least Mesa 18.2.0"
-		exit 1
-	fi
+if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19'); then
+	echo "You must install at least Mesa 18.2.0"
+	exit 1
 fi
 
 if ! $(glxinfo | grep -q "LLVM 8"); then
@@ -117,6 +115,7 @@ fi
 cat > LaunchCEMU << EOF1
 #!/bin/bash
 export WINEPREFIX="$(realpath $instdir)/wine"
+#for cemuhook
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
 if [ -z `winetricks list-installed|grep vcrun2015` ]; then
@@ -134,6 +133,7 @@ chmod +x LaunchCEMU
 cat > LaunchCEMUgcn3BOTW << EOF1
 #!/bin/bash
 export WINEPREFIX="$(realpath $instdir)/wine"
+#for cemuhook
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
 if [ -z `winetricks list-installed|grep vcrun2015` ]; then
