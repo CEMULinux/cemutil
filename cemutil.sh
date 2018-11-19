@@ -33,23 +33,27 @@ do
 	fi
 done
 
-if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19'); then
-	echo "You must install at least Mesa 18.2.0"
-	exit 1
-fi
-
-if ! $(glxinfo | grep -q "LLVM 8"); then
-	if ! $(glxinfo | grep -q "LLVM 7"); then
-		echo "You must install Mesa built with at least LLVM 7"
+function checkgfxver {
+	echo "Checking graphics packages are new enough. To skip this check (on Nvidia for instance), run with -f flag."
+	if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19'); then
+		echo "You must install at least Mesa 18.2.0"
 		exit 1
 	fi
-fi
 
-if ! $(glxinfo | grep -q "4.5 (Compat"); then
-	echo "Your hardware doesn't support the required OpenGL version."
-	echo "You may attempt using MESA_GL_VERSION_OVERRIDE=4.4COMPAT in the LaunchCEMU script."
-	echo "This isn't officially supported, and may cause heavy glitches or not work. Proceeding as usual..."
-fi
+	if ! $(glxinfo | grep -q "LLVM 8"); then
+		if ! $(glxinfo | grep -q "LLVM 7"); then
+			echo "You must install Mesa built with at least LLVM 7"
+			exit 1
+		fi
+	fi
+
+	if ! $(glxinfo | grep -q "4.5 (Compat"); then
+		echo "Your hardware doesn't support the required OpenGL version."
+		echo "You may attempt using MESA_GL_VERSION_OVERRIDE=4.4COMPAT in the LaunchCEMU script."
+		echo "This isn't officially supported, and may cause heavy glitches or not work. Proceeding as usual..."
+	fi
+	return
+}
 
 #Check for args
 if [[ ! $@ =~ ^\-.+ ]]
@@ -58,7 +62,7 @@ then
 fi
 
 #Handle args
-while getopts ":c:h:ai:" opt; do
+while getopts ":c:h:afi:" opt; do
 	case ${opt} in
 		c )
 			cemuzip=$OPTARG
@@ -77,6 +81,9 @@ while getopts ":c:h:ai:" opt; do
 		a )
 			downloadlatest
 			;;
+		f )
+			skipgfxcheck=1
+			;;
 		i )
 			instdir=$OPTARG
 			;;
@@ -90,6 +97,11 @@ while getopts ":c:h:ai:" opt; do
 	esac
 done
 shift $((OPTIND -1))
+
+#check gfx package vers
+if [[ "$skipgfxcheck" == "" ]]; then
+	checkgfxver
+fi
 
 #Set opts if unset
 if [[ "$instdir" == "" ]]; then
