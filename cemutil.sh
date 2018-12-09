@@ -144,7 +144,7 @@ if [ -z `winetricks list-installed|grep vcrun2015` ]; then
   winetricks settings win7
 fi
 cd $(realpath $instdir)
-mesa_glthread=true export __GL_THREADED_OPTIMIZATIONS=1 vblank_mode=0 WINEESYNC=0 wine Cemu.exe "\$@"
+mesa_glthread=true __GL_THREADED_OPTIMIZATIONS=1 vblank_mode=0 WINEESYNC=0 wine Cemu.exe "\$@"
 EOF1
 chmod +x LaunchCEMU
 
