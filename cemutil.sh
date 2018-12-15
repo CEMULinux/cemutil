@@ -18,7 +18,7 @@ function downloadlatest {
 	wget -q --show-progress -O cemutemp.zip $(curl -s http://cemu.info |grep .zip |awk -F '"' {'print $2'})
 	echo "Downloading latest cemuhook"
 	wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
-	echo "Downloading latest cemuhook"
+	echo "Downloading latest graphics packs"
 	wget -q --show-progress -O gfxpacktemp.zip https://github.com$(curl https://github.com/slashiee/cemu_graphic_packs/releases |grep graphicPacks |awk -F '"' NR==1{'print $2'})
 	return
 }
