@@ -136,7 +136,7 @@ export WINEPREFIX="$(realpath $instdir)/wine"
 #for cemuhook
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
-if [ -z `winetricks list-installed|grep vcrun2015` ]; then
+if [ -z "`winetricks list-installed|grep vcrun2015`" ]; then
   if [ -n "`whereis zenity|grep bin`" ]; then
     zenity --info  --title 'Cemu' --text 'Installing wine dependencies.\n\nThe process may take a few minutes'
   fi
@@ -154,7 +154,7 @@ export WINEPREFIX="$(realpath $instdir)/wine"
 #for cemuhook
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
-if [ -z `winetricks list-installed|grep vcrun2015` ]; then
+if [ -z "`winetricks list-installed|grep vcrun2015`" ]; then
   if [ -n "`whereis zenity|grep bin`" ]; then
     zenity --info  --title 'Cemu' --text 'Installing wine dependencies.\n\nThe process may take a few minutes'
   fi
