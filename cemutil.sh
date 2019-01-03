@@ -6,10 +6,11 @@ fi
 
 # help function:
 function printhelp {
-	echo "usage examples: Download latest public cemu + cemuhook and install to ~/.cemu (default):"
+	echo "usage examples:"
+	echo "Download latest public cemu + cemuhook + graphic packs and install to ~/.cemu (default):"
 	echo "./cemutil.sh -a"
 	echo "Use local zips and install to ~/Documents/cemu:"
-	echo "./cemutil.sh -c cemu.zip -h cemuhook.zip -i ~/Documents/cemu/"
+	echo "./cemutil.sh -c cemu.zip -h cemuhook.zip -g graphicpacks.zip -i ~/Documents/cemu"
 	exit 1
 }
 
@@ -62,7 +63,7 @@ then
 fi
 
 #Handle args
-while getopts ":c:h:afi:" opt; do
+while getopts ":c:h:g:afi:" opt; do
 	case ${opt} in
 		c )
 			cemuzip=$OPTARG
@@ -75,6 +76,13 @@ while getopts ":c:h:afi:" opt; do
 			cemuhookzip=$OPTARG
 			if [ ! -f "$cemuhookzip" ]; then
 				echo "cemuhook zip doesn't exist"
+				exit 1
+			fi
+			;;
+		g )
+			gfxpackzip=$OPTARG
+			if [ ! -f "$gfxpackzip" ]; then
+				echo "graphic packs zip doesn't exist"
 				exit 1
 			fi
 			;;
@@ -113,19 +121,35 @@ fi
 if [[ "$cemuhookzip" == "" ]]; then
 	cemuhookzip=cemuhooktemp.zip
 fi
+if [[ "$gfxpackzip" == "" ]]; then
+	gfxpackzip=gfxpacktemp.zip
+fi
 
 #Extract zips
 echo "Extracting zips"
 mkdir -p $instdir
-bsdtar -xf "$cemuzip" -s'|[^/]*/||' -C $instdir
-unzip -q -o "$cemuhookzip" -d $instdir
+
+
+#Unpack downloaded zips if applicable
+if [ -f "$cemuzip" ]; then
+	bsdtar -xf "$cemuzip" -s'|[^/]*/||' -C $instdir
+fi
+if [ -f "$cemuhookzip" ]; then
+	unzip -q -o "$cemuhookzip" -d $instdir
+fi
+if [ -f "$gfxpackzip" ]; then
+	rm -rf ${instdir}/graphicPacks/* #remove old versions of Graphic Packs to help with major changes
+	unzip -q -o "$gfxpackzip" -d ${instdir}/graphicPacks/
+fi
+
+#Delete downloaded zips if applicable
 if [ -f "gfxpacktemp.zip" ]; then
-	unzip -q -o gfxpacktemp.zip -d $instdir/graphicPacks
 	rm -rf gfxpacktemp.zip
 fi
-#Delete downloaded zips if applicable
 if [ -f "cemutemp.zip" ]; then
 	rm -rf cemutemp.zip
+fi
+if [ -f "cemuhooktemp.zip" ]; then
 	rm -rf cemuhooktemp.zip
 fi
 
@@ -171,3 +195,4 @@ echo "You may now run CEMU with LaunchCEMU written in this directory"
 echo "You may place LaunchCEMU anywhere, and even pass arguments to it just like Cemu.exe on Windows"
 echo "Note: When launching there may be a WxWidgets error. Press Cancel; this is normal from cemuhook"
 echo "Note2: gcn3 (radeon 300-500 series) users should use the gcn3BOTW script for launching BOTW"
+echo "Note3: Cemu Hook may not be able to download the 4 required shared fonts, these can be copied from a working Windows install of Cemu"
