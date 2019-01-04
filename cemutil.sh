@@ -167,7 +167,7 @@ export WINEPREFIX="$(realpath $instdir)/wine"
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
 cd $(realpath $instdir)
-mesa_glthread=true __GL_THREADED_OPTIMIZATIONS=1 vblank_mode=0 WINEESYNC=0 wine Cemu.exe "\$@"
+mesa_glthread=true __GL_THREADED_OPTIMIZATIONS=1 vblank_mode=0 WINEESYNC=1 wine Cemu.exe "\$@"
 EOF1
 chmod +x LaunchCEMU
 
@@ -178,7 +178,7 @@ export WINEPREFIX="$(realpath $instdir)/wine"
 export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 
 cd $(realpath $instdir)
-R600_DEBUG=nohyperz mesa_glthread=true vblank_mode=0 WINEESYNC=0 wine Cemu.exe "\$@"
+R600_DEBUG=nohyperz mesa_glthread=true vblank_mode=0 WINEESYNC=1 wine Cemu.exe "\$@"
 EOF1
 chmod +x LaunchCEMUgcn3BOTW
 
