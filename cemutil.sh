@@ -22,7 +22,7 @@ function printhelp {
 function downloadlatest {
 	echo "Downloading latest cemu"
 	#wget -q --show-progress -O cemutemp.zip $(curl -s http://cemu.info |grep .zip |awk -F '"' {'print $2'})
-	wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/cemu_1.15.0.zip
+	wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/cemu_1.15.4.zip
 	echo "Downloading latest cemuhook"
 	wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
 	echo "Downloading latest graphics packs"
@@ -164,6 +164,12 @@ echo "Configuring new wine prefix"
 export WINEPREFIX=$(realpath $instdir)/wine 
 winetricks -q vcrun2015
 winetricks settings win7
+
+#Create cemuhook.ini, enabling cemuhook h264 as default
+cat > $instdir/cemuhook.ini << EOF1
+[Debug]
+useH264Decoder = true
+EOF1
 
 #Create launch scripts
 cat > LaunchCEMU << EOF1
