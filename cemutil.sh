@@ -27,6 +27,8 @@ function downloadlatest {
 	wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
 	echo "Downloading latest graphics packs"
 	wget -q --show-progress -O gfxpacktemp.zip https://github.com$(curl https://github.com/slashiee/cemu_graphic_packs/releases |grep graphicPacks |awk -F '"' NR==1{'print $2'})
+	echo "Downloading cemuhook shared fonts"
+	wget -q --show-progress -O sharedFonts.zip https://github.com/HengiFettlich/cemutil/raw/master/sharedFonts.zip
 	return
 }
 
@@ -128,6 +130,9 @@ fi
 if [[ "$gfxpackzip" == "" ]]; then
 	gfxpackzip=gfxpacktemp.zip
 fi
+if [[ "$sharedFonts" == "" ]]; then
+	sharedFonts=sharedFonts.zip
+fi
 
 #Extract zips
 echo "Extracting zips"
@@ -146,6 +151,10 @@ if [ -f "$gfxpackzip" ]; then
 	unzip -q -o "$gfxpackzip" -d ${instdir}/graphicPacks/
 fi
 
+if [ -f "$sharedFonts" ]; then
+	unzip -q -o "$sharedFonts" -d $instdir
+fi
+
 #Delete downloaded zips if applicable
 if [ -f "gfxpacktemp.zip" ]; then
 	rm -rf gfxpacktemp.zip
@@ -155,6 +164,10 @@ if [ -f "cemutemp.zip" ]; then
 fi
 if [ -f "cemuhooktemp.zip" ]; then
 	rm -rf cemuhooktemp.zip
+fi
+
+if [ -f "sharedFonts.zip" ]; then
+	rm -rf sharedFonts.zip
 fi
 
 #Configure wine prefix
@@ -197,4 +210,3 @@ echo "You may now run CEMU with LaunchCEMU written in this directory"
 echo "You may place LaunchCEMU anywhere, and even pass arguments to it just like Cemu.exe on Windows"
 echo "Note: When launching there may be a WxWidgets error. Press Cancel; this is normal from cemuhook"
 echo "Note2: gcn3 (radeon 300-500 series) users should use the gcn3BOTW script for launching BOTW"
-echo "Note3: Cemu Hook may not be able to download the 4 required shared fonts, these can be copied from a working Windows install of Cemu"
