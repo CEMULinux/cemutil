@@ -173,7 +173,7 @@ fi
 #Configure wine prefix
 echo "Configuring new wine prefix"
 export WINEPREFIX=$(realpath $instdir)/wine 
-winetricks -q vcrun2015
+winetricks -q vcrun2017
 winetricks settings win7
 
 #Create cemuhook.ini, enabling cemuhook h264 as default
