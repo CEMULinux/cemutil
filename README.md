@@ -12,12 +12,12 @@ Running
 ===============================================================
 Run the following commands to download and run the program to see usage capabilities:
 ```
-wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
+wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
 ```
 
 Run the following commands to download and run the program with the '-a' flag to download Cemu, Cemu Hook and the latest Graphics Packs:
 ```
-wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
+wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
 ```
 
 Support
