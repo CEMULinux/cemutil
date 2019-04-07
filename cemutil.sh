@@ -47,11 +47,9 @@ function checkgfxver {
 		exit 1
 	fi
 
-	if ! $(glxinfo | grep -q "LLVM 8"); then
-		if ! $(glxinfo | grep -q "LLVM 7"); then
-			echo "You must install Mesa built with at least LLVM 7"
-			exit 1
-		fi
+	if ! $(glxinfo | grep -q -e "LLVM 9" -e "LLVM 8" -e "LLVM 7"); then
+		echo "You must install Mesa built with at least LLVM 7"
+		exit 1
 	fi
 
 	if ! $(glxinfo | grep -q "4.5 (Compat"); then
