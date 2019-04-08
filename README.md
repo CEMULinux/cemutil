@@ -23,4 +23,5 @@ wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil
 Support
 ===============================================================
 Go to #linux on [CEMU Discord](https://discord.gg/5psYsup)
- - Currently wine-staging 4.5 seems to be not working on Ubuntu, perhaps even other Debian based Distros. If you're using an Arch based Distro, it is recommended to build wine-tkg yourself. (https://github.com/Tk-Glitch/PKGBUILDS/tree/master/wine-tkg-git)
+ - Currently wine-staging 4.5 seems to be not working. If you're using an Arch based Distro, it is recommended to build wine-tkg yourself.(https://github.com/Tk-Glitch/PKGBUILDS/tree/master/wine-tkg-git)
+ - Ubuntu Users should install wine-staging 4.3 or wine-tkg 4.3
