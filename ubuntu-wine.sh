@@ -39,15 +39,15 @@ fi
 # install faudio
 sudo dpkg -i *.deb
 
-sudo apt --fix-broken install -qq
+sudo apt -y --fix-broken install
 
-sudo apt update -qq
+sudo apt update
 
 # install wine-staging
-sudo apt install --install-recommends winehq-staging -qq
+sudo apt -y install --install-recommends winehq-staging
 
 # install winetricks
-sudo apt install winetricks -qq
+sudo apt -y install winetricks
 
 # vcrun2017 is recommended
 winetricks vcrun2017
