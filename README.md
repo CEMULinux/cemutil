@@ -15,9 +15,14 @@ Run the following commands to download and run the program to see usage capabili
 wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
 ```
 
-Run the following commands to download and run the program with the '-a' flag to download Cemu, Cemu Hook and the latest Graphics Packs:
+Run the following commands to download and run the program with the '-a' flag to download latest known working Cemu, Cemu Hook and the latest Graphics Packs:
 ```
 wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
+```
+
+Run the following commands to download and run the program with the '-l' flag to download latest Cemu, Cemu Hook and the latest Graphics Packs:
+```
+wget -O ./cemutil.sh https://github.com/HengiFettlich/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -l
 ```
 
 Support
