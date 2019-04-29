@@ -21,21 +21,9 @@ function printhelp {
     exit 1
 }
 
-function downloadlatest {
-    echo "Downloading latest cemu"
-    wget -q --show-progress -O cemutemp.zip $(curl -s http://cemu.info |grep .zip |awk -F '"' {'print $2'})
-    downloadassets
-    return
-}
-
-function downloadlatest_working {
-    echo "Downloading latest working cemu"
-    wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/cemu_1.15.5.zip
-    downloadassets
-    return
-}
-
-function downloadassets {
+function download {
+    echo "Downloading ${cemu_version}"
+    wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/${cemu_version}.zip
     echo "Downloading latest cemuhook"
     wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
     echo "Downloading latest graphics packs"
@@ -106,10 +94,12 @@ while getopts ":c:h:g:alfi:" opt; do
             fi
         ;;
         a )
-            downloadlatest_working
+            cemu_version="cemu_1.15.5"
+            download
         ;;
         l )
-            downloadlatest
+            cemu_version=$(curl -s http://cemu.info | grep -Po 'cemu_.+?(?=\.zip)')
+            download
         ;;
         f )
             skipgfxcheck=1
