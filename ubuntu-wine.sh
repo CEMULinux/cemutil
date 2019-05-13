@@ -31,7 +31,7 @@ fi
 
 # adds repo for Ubuntu 19.04 and libfaudio0, which isn't available in the standard repo
 if $(lsb_release -a | grep -q -e "19.04"); then
-    sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ cosmic main'
+    sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
     sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/amd64/libfaudio0_19.04-0~disco_amd64.deb
     sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/i386/libfaudio0_19.04-0~disco_i386.deb
 fi
