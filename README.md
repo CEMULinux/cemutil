@@ -35,5 +35,14 @@ Go to #linux on [CEMU Discord](https://discord.gg/5psYsup)
 ```
 wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && sudo ./ubuntu-wine.sh
 ```
- 
- 
+
+Vega Users
+===============================================================
+Vega Graphics users on ubuntu should use the padoka ppa for latest Mesa builds, as the texture walls are fixed there.
+```
+sudo add-apt-repository ppa:paulo-miguel-dias/mesa
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+Arch (i.e. Manjaro or Antergos Users) have to build mesa-git from the AUR. If you need help, join the [CEMU Discord](https://discord.gg/5psYsup) and ask in #linux
