@@ -45,4 +45,17 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Arch (i.e. Manjaro or Antergos Users) have to build mesa-git from the AUR. If you need help, join the [CEMU Discord](https://discord.gg/5psYsup) and ask in #linux
+Arch (i.e. Manjaro or Antergos Users) edit /etc/pacman.conf, i.e. with gedit: 
+```
+sudo gedit /etc/pacman.conf
+```
+to the bottom of the file add:
+```
+[mesa-git] 
+SigLevel = PackageOptional 
+Server = http://pkgbuild.com/~lcarlier/$repo/$arch
+```
+save the file and then type:
+```
+sudo pacman -Syu mesa-git
+```
