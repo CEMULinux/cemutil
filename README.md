@@ -57,5 +57,5 @@ Server = http://pkgbuild.com/~lcarlier/$repo/$arch
 ```
 save the file and then type:
 ```
-sudo pacman -Syu mesa-git
+sudo pacman -Syu mesa-git lib32-mesa-git
 ```
