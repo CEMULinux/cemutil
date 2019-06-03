@@ -45,17 +45,4 @@ sudo apt-get update
 sudo apt-get upgrade
 ```
 
-Arch (i.e. Manjaro or Antergos Users) edit /etc/pacman.conf, i.e. with gedit: 
-```
-sudo gedit /etc/pacman.conf
-```
-to the bottom of the file add:
-```
-[mesa-git] 
-SigLevel = PackageOptional 
-Server = http://pkgbuild.com/~lcarlier/$repo/$arch
-```
-save the file and then type:
-```
-sudo pacman -Syu mesa-git lib32-mesa-git
-```
+Arch (i.e. Manjaro or Antergos Users) need at least Mesa 19.0.4
