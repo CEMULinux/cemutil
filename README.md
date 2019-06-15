@@ -38,11 +38,5 @@ wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubu
 
 Vega Users
 ===============================================================
-Vega Graphics users on ubuntu should use the padoka ppa for latest Mesa builds, as the texture walls are fixed there.
-```
-sudo add-apt-repository ppa:paulo-miguel-dias/mesa
-sudo apt-get update
-sudo apt-get upgrade
-```
-
-Arch (i.e. Manjaro or Antergos Users) need at least Mesa 19.0.4
+Vega Graphics users should use Mesa 19.1. 
+On Ubuntu Padoka and Oibaf Mesa are broken.
