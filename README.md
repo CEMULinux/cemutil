@@ -33,7 +33,7 @@ Go to #linux on [CEMU Discord](https://discord.gg/5psYsup)
  
  Users with Ubuntu 18.04 and later can run this command in terminal:
 ```
-wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && sudo ./ubuntu-wine.sh
+wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && ./ubuntu-wine.sh
 ```
 
 Vega Users
