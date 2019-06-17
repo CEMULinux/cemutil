@@ -2,6 +2,8 @@ if [ -z "$DISPLAY" ]; then
     export DISPLAY=:0.0
 fi
 
+sudo rm -rf /tmp/wine_install
+
 sudo mkdir /tmp/wine_install
 
 cd /tmp/wine_install
@@ -53,4 +55,4 @@ sudo apt -y install winetricks
 winetricks vcrun2017
 
 # cleanup
-rm -rf /tmp/wine_install
+sudo rm -rf /tmp/wine_install
