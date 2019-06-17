@@ -17,7 +17,7 @@ sudo wget -nc https://dl.winehq.org/wine-builds/winehq.key
 # add wine repo key
 sudo apt-key add winehq.key
 
-sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+sudo add-apt-repository -y ppa:cybermax-dexter/sdl2-backport
 
 sudo apt update
 
