@@ -20,23 +20,33 @@ sudo apt-key add winehq.key
 # adds repo for Ubuntu 18.04 and libfaudio0, which isn't available in the standard repo
 if $(lsb_release -a | grep -q -e "18.04"); then
     sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.04-0~bionic_amd64.deb
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.04-0~bionic_i386.deb
+    root="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/"
+    root32="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/"
+    tmp=$(curl -s $root | grep -Po libfaudio0.*?.deb  | head -1)
+    tmp32=$(curl -s $root32 | grep -Po libfaudio0.*?.deb  | head -1)
 fi
 
 # adds repo for Ubuntu 18.10 and libfaudio0, which isn't available in the standard repo
 if $(lsb_release -a | grep -q -e "18.10"); then
     sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ cosmic main'
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard/amd64/libfaudio0_19.04-0~cosmic_amd64.deb
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard/i386/libfaudio0_19.04-0~cosmic_i386.deb
+    root="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard/amd64/"
+    root32="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard/i386/"
+    tmp=$(curl -s $root | grep -Po libfaudio0.*?.deb  | head -1)
+    tmp32=$(curl -s $root32 | grep -Po libfaudio0.*?.deb  | head -1)
 fi
 
 # adds repo for Ubuntu 19.04 and libfaudio0, which isn't available in the standard repo
 if $(lsb_release -a | grep -q -e "19.04"); then
     sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/amd64/libfaudio0_19.04-0~disco_amd64.deb
-    sudo wget -nc https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/i386/libfaudio0_19.04-0~disco_i386.deb
+    root="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/amd64/"
+    root32="https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_19.04/i386/"
+    tmp=$(curl -s $root | grep -Po libfaudio0.*?.deb  | head -1)
+    tmp32=$(curl -s $root32 | grep -Po libfaudio0.*?.deb  | head -1)
 fi
+
+# download faudio packages
+sudo wget -nc $root$tmp
+sudo wget -nc $root32$tmp32
 
 # install faudio
 sudo dpkg -i *.deb
