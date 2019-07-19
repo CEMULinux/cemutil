@@ -194,3 +194,4 @@ echo "You may place LaunchCEMU anywhere, and even pass arguments to it just like
 echo "Note: When launching there may be a WxWidgets error. Press Cancel; this is normal from cemuhook"
 echo "Note2: gcn3 (radeon 300-500 series) users should use the gcn3BOTW script for launching BOTW"
 echo "Note3: Cemu Hook may not be able to download the 4 required shared fonts, these can be copied from a working Windows install of Cemu"
+echo "Note4: CEMU versions >= 1.15.4 utilize a built-in solution for in-game video playback. Turn on Debug -> 'Use CemuHook H264' if you are encountering any green screens."
