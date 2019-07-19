@@ -12,7 +12,7 @@ fi
 # help function:
 function printhelp {
 	echo "usage examples:"
-	echo "Download latest working cemu + cemuhook + graphic packs and install to ~/.cemu (default):"
+	echo "Download latest available cemu + cemuhook + graphic packs and install to ~/.cemu (default):"
 	echo "./cemutil.sh -a"
 	echo "Use local zips and install to ~/Documents/cemu:"
 	echo "./cemutil.sh -c cemu.zip -h cemuhook.zip -g graphicpacks.zip -i ~/Documents/cemu"
