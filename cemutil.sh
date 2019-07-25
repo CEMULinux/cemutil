@@ -43,8 +43,12 @@ do
     fi
 done
 
+if $(glxinfo | grep -q -e "NVIDIA"); then
+	skipgfxcheck=1
+fi
+
 function checkgfxver {
-    echo "Checking graphics packages are new enough. To skip this check (on Nvidia for instance), run with -f flag."
+    echo "Checking graphics packages are new enough. To skip this check, run with -f flag."
     if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19'); then
         echo "You must install at least Mesa 18.2.0"
         exit 1
