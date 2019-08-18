@@ -2,12 +2,6 @@ if [ -z "$DISPLAY" ]; then
     export DISPLAY=:0.0
 fi
 
-sudo rm -rf /tmp/wine_install
-
-sudo mkdir /tmp/wine_install
-
-cd /tmp/wine_install
-
 # add i386 architecture, necessary for wine
 sudo dpkg --add-architecture i386
 
@@ -29,5 +23,5 @@ sudo apt -y install --install-recommends winehq-staging
 # install winetricks
 sudo apt -y install winetricks
 
-# cleanup
-sudo rm -rf /tmp/wine_install
+#cleanup
+sudo rm -rf winehq.key
