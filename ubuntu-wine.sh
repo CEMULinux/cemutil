@@ -32,8 +32,6 @@ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport -y
 
 sudo apt update
 
-sudo apt -y install libfaudio0-amd64 libfaudio0-i386 libfaudio0 
-
 # install wine-staging
 sudo apt -y install --install-recommends winehq-staging
 
