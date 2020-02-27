@@ -98,7 +98,7 @@ while getopts ":c:h:g:alfi:" opt; do
             fi
         ;;
         a )
-            cemu_version="cemu_1.15.20"
+            cemu_version="cemu_1.17.2"
             download
         ;;
         l )
