@@ -121,7 +121,7 @@ while getopts ":c:h:g:alfi:" opt; do
     esac
 done
 shift $((OPTIND -1))
-
+skipgfxcheck=1
 #check gfx package vers
 if [[ "$skipgfxcheck" == "" ]]; then
     checkgfxver
