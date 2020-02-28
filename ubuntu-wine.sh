@@ -2,7 +2,7 @@ if [ -z "$DISPLAY" ]; then
     export DISPLAY=:0.0
 fi
 
-if ! $(lsb_release -a | grep -q -e "18.04" -e "18.10" -e "19.10"); then     #Changed from 19.04 --> 19.10
+if ! $(lsb_release -a | grep -q -e "18.04" -e "18.10" -e "19.04" -e "19.10"); then
   echo "You need at least Ubuntu 18.04"
   exit 1
 fi
@@ -24,6 +24,10 @@ if $(lsb_release -a | grep -q -e "18.10"); then
   sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ cosmic main'
 fi
 
+if $(lsb_release -a | grep -q -e "19.04"); then
+  sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
+fi
+
 if $(lsb_release -a | grep -q -e "19.10"); then
   sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ eoan main'
 fi
@@ -33,7 +37,7 @@ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport -y
 sudo apt update
 
 # install wine-staging
-sudo apt install --install-recommends winehq-staging
+sudo apt -y install --install-recommends winehq-staging
 
 # install winetricks
 sudo apt -y install winetricks
