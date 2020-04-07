@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if (( $EUID == 0 )); then
-	echo "Do not run as root."
-	exit 1
+    echo "Do not run as root."
+    exit 1
 fi
 
 if [ -z "$DISPLAY" ]; then
-	export DISPLAY=:0.0
+    export DISPLAY=:0.0
 fi
 
 # help function:
@@ -25,6 +25,8 @@ function downloadlatest {
 	#wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/cemu_1.15.0.zip
 	echo "Downloading latest cemuhook"
 	wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
+	echo "Downloading cemuhook shared fonts"
+	wget -q --show-progress -O sharedFonts.zip https://github.com/CEMULinux/cemutil/raw/master/sharedFonts.zip
 	return
 }
 
@@ -32,11 +34,15 @@ function downloadlatest {
 declare -a reqsw=("wine" "bsdtar" "unzip" "glxinfo" "curl" "wget" "winetricks")
 for i in "${reqsw[@]}"
 do
-	if ! [ -x "$(command -v $i)" ]; then
-		echo "You must install $i"
-		exit 1
-	fi
+    if ! [ -x "$(command -v $i)" ]; then
+        echo "You must install $i"
+        exit 1
+    fi
 done
+
+if $(glxinfo | grep -q -e "NVIDIA"); then
+	skipgfxcheck=1
+fi
 
 function checkgfxver {
 	echo "Checking graphics packages are new enough. To skip this check (on Nvidia for instance), run with -f flag."
@@ -58,7 +64,7 @@ function checkgfxver {
 #Check for args
 if [[ ! $@ =~ ^\-.+ ]]
 then
-	printhelp;
+    printhelp;
 fi
 
 #Handle args
@@ -97,21 +103,24 @@ while getopts ":c:h:afi:" opt; do
 	esac
 done
 shift $((OPTIND -1))
-
+skipgfxcheck=1
 #check gfx package vers
 if [[ "$skipgfxcheck" == "" ]]; then
-	checkgfxver
+    checkgfxver
 fi
 
 #Set opts if unset
 if [[ "$instdir" == "" ]]; then
-	instdir=$HOME/.cemu
+    instdir=$HOME/.cemu
 fi
 if [[ "$cemuzip" == "" ]]; then
-	cemuzip=cemutemp.zip
+    cemuzip=cemutemp.zip
 fi
 if [[ "$cemuhookzip" == "" ]]; then
-	cemuhookzip=cemuhooktemp.zip
+    cemuhookzip=cemuhooktemp.zip
+fi
+if [[ "$sharedFonts" == "" ]]; then
+    sharedFonts=sharedFonts.zip
 fi
 
 #Extract zips
@@ -121,25 +130,39 @@ mkdir -p $instdir
 
 #Unpack downloaded zips if applicable
 if [ -f "$cemuzip" ]; then
-	bsdtar -xf "$cemuzip" -s'|[^/]*/||' -C $instdir
+    bsdtar -xf "$cemuzip" -s'|[^/]*/||' -C $instdir
 fi
 if [ -f "$cemuhookzip" ]; then
-	unzip -q -o "$cemuhookzip" -d $instdir
+    unzip -q -o "$cemuhookzip" -d $instdir
+fi
+if [ -f "$sharedFonts" ]; then
+    unzip -q -o "$sharedFonts" -d $instdir
 fi
 
 #Delete downloaded zips if applicable
+
 if [ -f "cemutemp.zip" ]; then
-	rm -rf cemutemp.zip
+    rm -rf cemutemp.zip
 fi
 if [ -f "cemuhooktemp.zip" ]; then
-	rm -rf cemuhooktemp.zip
+    rm -rf cemuhooktemp.zip
+fi
+
+if [ -f "sharedFonts.zip" ]; then
+    rm -rf sharedFonts.zip
 fi
 
 #Configure wine prefix
 echo "Configuring new wine prefix"
-export WINEPREFIX=$(realpath $instdir)/wine 
-winetricks -q vcrun2015
+export WINEPREFIX=$(realpath $instdir)/wine
+winetricks -q vcrun2017
 winetricks settings win7
+
+#Create cemuhook.ini, enabling cemuhook h264 as default
+cat > $instdir/cemuhook.ini << EOF1
+[Debug]
+useH264Decoder = true
+EOF1
 
 #Create launch scripts
 cat > LaunchCEMU << EOF1
@@ -167,7 +190,5 @@ chmod +x LaunchCEMUgcn3BOTW
 echo "Successfully installed to $(realpath $instdir)"
 echo "You may now run CEMU with LaunchCEMU written in this directory"
 echo "You may place LaunchCEMU anywhere, and even pass arguments to it just like Cemu.exe on Windows"
-echo "Note: When launching there may be a WxWidgets error. Press Cancel; this is normal from cemuhook"
 echo "Note2: gcn3 (radeon 300-500 series) users should use the gcn3BOTW script for launching BOTW"
-echo "Note3: Cemu Hook may not be able to download the 4 required shared fonts, these can be copied from a working Windows install of Cemu"
-echo "Note4: CEMU versions >= 1.15.4 utilize a built-in solution for in-game video playback. Turn on Debug -> 'Use CemuHook H264' if you are encountering any green screens."
+echo "Note3: CEMU versions >= 1.15.4 utilize a built-in solution for in-game video playback. Turn on Debug -> 'Use CemuHook H264' if you are encountering any green screens."

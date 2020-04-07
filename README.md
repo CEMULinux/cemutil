@@ -15,11 +15,22 @@ Run the following commands to download and run the program to see usage capabili
 wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
 ```
 
-Run the following commands to download and run the program with the '-a' flag to download Cemu, Cemu Hook and the latest Graphics Packs:
+Run the following commands to download and run the program with the '-a' flag to download latest known working Cemu, Cemu Hook and the latest Graphics Packs:
 ```
 wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
+```
+
+Run the following commands to download and run the program with the '-l' flag to download latest Cemu, Cemu Hook and the latest Graphics Packs:
+```
+wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -l
 ```
 
 Support
 ===============================================================
 Go to #linux on [CEMU Discord](https://discord.gg/5psYsup)
+ - If you're using an Arch based Distro, it is recommended to build wine-tkg yourself.(https://github.com/Tk-Glitch/PKGBUILDS/tree/master/wine-tkg-git)
+ 
+ Users with Ubuntu 18.04 and later can run this command in terminal:
+```
+wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && ./ubuntu-wine.sh
+```
