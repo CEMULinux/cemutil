@@ -12,7 +12,7 @@ fi
 # help function:
 function printhelp {
 	echo "usage examples:"
-	echo "Download latest available cemu + cemuhook + graphic packs and install to ~/.cemu (default):"
+	echo "Download latest available cemu + cemuhook and install to ~/.cemu (default):"
 	echo "./cemutil.sh -a"
 	echo "Use local zips and install to ~/Documents/cemu:"
 	echo "./cemutil.sh -c cemu.zip -h cemuhook.zip -g graphicpacks.zip -i ~/Documents/cemu"
@@ -25,8 +25,6 @@ function downloadlatest {
 	#wget -q --show-progress -O cemutemp.zip http://cemu.info/releases/cemu_1.15.0.zip
 	echo "Downloading latest cemuhook"
 	wget -q --show-progress -O cemuhooktemp.zip $(curl -s https://cemuhook.sshnuke.net |grep .zip |awk -F '"' NR==2{'print $2'})
-	echo "Downloading latest graphics packs"
-	wget -q --show-progress -O gfxpacktemp.zip https://github.com$(curl https://github.com/slashiee/cemu_graphic_packs/releases |grep graphicPacks |awk -F '"' NR==1{'print $2'})
 	return
 }
 
@@ -42,22 +40,17 @@ done
 
 function checkgfxver {
 	echo "Checking graphics packages are new enough. To skip this check (on Nvidia for instance), run with -f flag."
-	if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19'); then
+	if ! $(glxinfo | grep -q -e 'Mesa 18.2' -e 'Mesa 18.3' -e 'Mesa 18.4' -e 'Mesa 19' -e 'Mesa 20'); then
 		echo "You must install at least Mesa 18.2.0"
 		exit 1
 	fi
 
-	if ! $(glxinfo | grep -q "LLVM 8"); then
-		if ! $(glxinfo | grep -q "LLVM 7"); then
-			echo "You must install Mesa built with at least LLVM 7"
-			exit 1
-		fi
-	fi
-
 	if ! $(glxinfo | grep -q "4.5 (Compat"); then
-		echo "Your hardware doesn't support the required OpenGL version."
-		echo "You may attempt using MESA_GL_VERSION_OVERRIDE=4.4COMPAT in the LaunchCEMU script."
-		echo "This isn't officially supported, and may cause heavy glitches or not work. Proceeding as usual..."
+		if ! $(glxinfo | grep -q "4.6 (Compat"); then
+			echo "Your hardware doesn't support the required OpenGL version."
+			echo "You may attempt using MESA_GL_VERSION_OVERRIDE=4.4COMPAT in the LaunchCEMU script."
+			echo "This isn't officially supported, and may cause heavy glitches or not work. Proceeding as usual..."
+		fi
 	fi
 	return
 }
@@ -69,7 +62,7 @@ then
 fi
 
 #Handle args
-while getopts ":c:h:g:afi:" opt; do
+while getopts ":c:h:afi:" opt; do
 	case ${opt} in
 		c )
 			cemuzip=$OPTARG
@@ -82,13 +75,6 @@ while getopts ":c:h:g:afi:" opt; do
 			cemuhookzip=$OPTARG
 			if [ ! -f "$cemuhookzip" ]; then
 				echo "cemuhook zip doesn't exist"
-				exit 1
-			fi
-			;;
-		g )
-			gfxpackzip=$OPTARG
-			if [ ! -f "$gfxpackzip" ]; then
-				echo "graphic packs zip doesn't exist"
 				exit 1
 			fi
 			;;
@@ -127,9 +113,6 @@ fi
 if [[ "$cemuhookzip" == "" ]]; then
 	cemuhookzip=cemuhooktemp.zip
 fi
-if [[ "$gfxpackzip" == "" ]]; then
-	gfxpackzip=gfxpacktemp.zip
-fi
 
 #Extract zips
 echo "Extracting zips"
@@ -143,15 +126,8 @@ fi
 if [ -f "$cemuhookzip" ]; then
 	unzip -q -o "$cemuhookzip" -d $instdir
 fi
-if [ -f "$gfxpackzip" ]; then
-	rm -rf ${instdir}/graphicPacks/* #remove old versions of Graphic Packs to help with major changes
-	unzip -q -o "$gfxpackzip" -d ${instdir}/graphicPacks/
-fi
 
 #Delete downloaded zips if applicable
-if [ -f "gfxpacktemp.zip" ]; then
-	rm -rf gfxpacktemp.zip
-fi
 if [ -f "cemutemp.zip" ]; then
 	rm -rf cemutemp.zip
 fi
