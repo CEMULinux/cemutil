@@ -12,17 +12,17 @@ Running
 ===============================================================
 Run the following commands to download and run the program to see usage capabilities:
 ```
-wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
+wget -O ./cemutil.sh https://github.com/adam-burke0/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh
 ```
 
 Run the following commands to download and run the program with the '-a' flag to download latest known working Cemu, Cemu Hook and the latest Graphics Packs:
 ```
-wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
+wget -O ./cemutil.sh https://github.com/adam-burke0/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -a
 ```
 
 Run the following commands to download and run the program with the '-l' flag to download latest Cemu, Cemu Hook and the latest Graphics Packs:
 ```
-wget -O ./cemutil.sh https://github.com/CEMULinux/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -l
+wget -O ./cemutil.sh https://github.com/adam-burke0/cemutil/raw/master/cemutil.sh && chmod +x cemutil.sh && ./cemutil.sh -l
 ```
 
 Support
@@ -32,5 +32,5 @@ Go to #linux on [CEMU Discord](https://discord.gg/5psYsup)
  
  Users with Ubuntu 18.04 and later can run this command in terminal:
 ```
-wget -O ./ubuntu-wine.sh https://github.com/HengiFettlich/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && ./ubuntu-wine.sh
+wget -O ./ubuntu-wine.sh https://github.com/adam-burke0/cemutil/raw/master/ubuntu-wine.sh && chmod +x ubuntu-wine.sh && ./ubuntu-wine.sh
 ```
