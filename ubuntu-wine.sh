@@ -40,6 +40,22 @@ if $(lsb_release -a | grep -q -e "20.10"); then
   sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ groovy main'
 fi
 
+if $(lsb_release -a | grep -q -e "21.04"); then
+  sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ hirsute main'
+fi
+
+if $(lsb_release -a | grep -q -e "21.10"); then
+  sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ impish main'
+fi
+
+if $(lsb_release -a | grep -q -e "22.04"); then
+  sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ jammy main'
+fi
+
+if $(lsb_release -a | grep -q -e "22.10"); then
+  sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ kinetic main'
+fi
+
 sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport -y
 
 sudo apt update
